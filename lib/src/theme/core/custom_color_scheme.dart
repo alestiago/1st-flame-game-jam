@@ -9,7 +9,7 @@ class CustomColorScheme {
   static const Color _secondaryVariant = Color(0xFFAAFFFF);
   static const Color _onSecondary = _onPrimary;
 
-  static const Color _surface = Color(0xFFAAFFFF);
+  static const Color _surface = Color(0xFF44484D);
   static const Color _onSurface = Colors.black;
 
   static const Color _background = Color(0xFF241113);
