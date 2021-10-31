@@ -55,7 +55,9 @@ class HomePage extends StatelessWidget {
   void _onPlay(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute<void>(builder: (_) => GamePage()),
+      MaterialPageRoute<void>(
+        builder: (_) => const GamePage(),
+      ),
     );
   }
 }

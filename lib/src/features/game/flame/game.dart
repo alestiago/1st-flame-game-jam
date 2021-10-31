@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/components.dart';
@@ -21,7 +20,6 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    // ignore: unawaited_futures
     FlameAudio.play('witch-start.mp3');
 
     await add(CauldronComponent());
@@ -54,7 +52,7 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
     // TODO: Move and refactor, make use of Palette.
     final _style = TextPaint(
       config: const TextPaintConfig(
-        color: Color(0xFFFFFFFFF),
+        color: Color(0xFFFFFFFF),
         fontFamily: 'HennyPenny',
       ).withFontSize(25),
     );

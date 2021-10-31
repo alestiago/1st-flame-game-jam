@@ -10,7 +10,8 @@ class CauldronComponent extends SpriteComponent with HasGameRef<MyGame> {
 
   // TODO: Make responsive to viewport.
   static final Vector2 _spriteSize = Vector2(326, 344);
-  static const String _spritePath = 'cauldron.png';
+  static const String _spritePath =
+      'cauldron.png'; // FIXME: Make sprite squared.
 
   @override
   Future<void> onLoad() async {
@@ -25,6 +26,7 @@ class CauldronComponent extends SpriteComponent with HasGameRef<MyGame> {
 
     // TODO: Add witch spoon component.
     await add(
+      // FIXME: Mixture vertical space not alligned.
       CauldronMixtureComponent()
         ..position = Vector2(
           _spriteSize[0] / 2,

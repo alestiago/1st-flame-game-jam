@@ -86,14 +86,14 @@ class PotionComponent extends SpriteAnimationComponent
   @override
   void onCollision(Set<Vector2> points, Collidable other) {
     if (other is CauldronMixtureComponent) {
-      print('collide');
+      // TODO: Set pouring animation.
     }
   }
 
   @override
   void onCollisionEnd(Collidable other) {
     if (other is CauldronMixtureComponent) {
-      print('Finish');
+      // TODO: Remove pouring animation.
     }
   }
 

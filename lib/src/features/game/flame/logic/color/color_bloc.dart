@@ -26,8 +26,8 @@ class ColorBloc extends Bloc<ColorEvent, ColorState> {
     do {
       newColor = _generateRandomColor();
     } while (newColor != state.color &&
-        newColor != Color(0xFFFFFFFF) &&
-        newColor != Color(0xFF000000));
+        newColor != const Color(0xFFFFFFFF) &&
+        newColor != const Color(0xFF000000));
 
     emit(ColorState(newColor));
   }
