@@ -3,12 +3,19 @@ import 'package:flame/extensions.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+
 import 'package:flame_game_jam/src/features/game/flame/components/components.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/potions/potion_types.dart';
+import 'package:flame_game_jam/src/features/game/flame/core/core.dart';
 import 'package:flame_game_jam/src/features/game/flame/game.dart';
 
 class PotionComponent extends SpriteAnimationComponent
-    with HasGameRef<MyGame>, Draggable, Hitbox, Collidable {
+    with
+        HasGameRef<MyGame>,
+        Draggable,
+        Hitbox,
+        Collidable,
+        PreferredSizeComponent {
   PotionComponent(this.type);
 
   static final Vector2 spriteSize = Vector2(64, 122);
@@ -81,5 +88,10 @@ class PotionComponent extends SpriteAnimationComponent
     if (other is CauldronMixtureComponent) {
       print('Finish');
     }
+  }
+
+  @override
+  Vector2 get preferredSize {
+    return spriteSize;
   }
 }

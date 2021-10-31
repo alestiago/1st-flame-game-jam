@@ -21,7 +21,7 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
     await add(CauldronComponent());
     await add(
       DeskComponent(
-        potions: [
+        children: [
           _redPotion,
           _bluePotion,
           _greenPotion,

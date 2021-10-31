@@ -1,17 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/potions/potions.dart';
+import 'package:flame_game_jam/src/features/game/flame/core/core.dart';
 import 'package:flame_game_jam/src/features/game/flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
   DeskComponent({
-    required List<PotionComponent> potions,
-  }) : _potions = potions;
+    required List<PreferredSizeComponent> children,
+  }) : _children = children;
 
   // TODO: Remove magic color by using a Theme.
   static final _paint = Paint()..color = Color(0xFF44484D);
-  final List<PotionComponent> _potions;
+  final List<PreferredSizeComponent> _children;
   late final Vector2 _deskSize;
 
   @override
@@ -22,7 +23,7 @@ class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
     await _layoutChildren(
       horizontalPadding: Vector2.all(20),
     );
-    _addEventListners();
+    _addEventListeners();
   }
 
   void _declareProperties() {
@@ -38,19 +39,21 @@ class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
     Vector2? horizontalPadding,
   }) async {
     horizontalPadding = horizontalPadding ?? Vector2.all(0);
-    final spaceBetween = _calculateHorizontalSpaceBetween(
+    final spaceBetween = _calculateHorizontalSpaceEvenly(
       width: size[0],
       horizontalPadding: horizontalPadding,
-      children: _potions,
+      children: _children,
     );
 
-    var horizontalDisplacement =
-        -PotionComponent.spriteSize[0] + horizontalPadding[0];
-    for (var i = 0; i < _potions.length; i++) {
-      final potion = _potions[i];
+    var horizontalDisplacement = 0.0;
+    for (var i = 0; i < _children.length; i++) {
+      dynamic child;
+      child = _children[i];
 
-      // FIXME: Allow PositionedComponent to have a preffered size
-      // before being mounted.
+      if (i == 0 && child is PreferredSizeComponent) {
+        horizontalDisplacement = -child.preferredSize[0] + horizontalPadding[0];
+      }
+
       final x = PotionComponent.spriteSize[0] + spaceBetween;
       final position = Vector2(
         x + horizontalDisplacement,
@@ -58,32 +61,33 @@ class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
       );
       horizontalDisplacement += x;
 
-      potion.position = position;
-      if (!potion.isMounted) {
-        await add(potion);
+      if (child is PositionComponent) {
+        child.position = position;
+        if (!child.isMounted) {
+          await add(child);
+        }
       }
     }
   }
 
-  void _addEventListners() {
-    for (final potionComponent in _potions) {
-      potionComponent.onDropped = _layoutChildren;
+  void _addEventListeners() {
+    for (final child in _children) {
+      if (child is PotionComponent) {
+        child.onDropped = _layoutChildren;
+      }
     }
   }
 
-  static double _calculateHorizontalSpaceBetween({
+  static double _calculateHorizontalSpaceEvenly({
     required double width,
-    required List<PositionComponent> children,
+    required List<PreferredSizeComponent> children,
     required Vector2 horizontalPadding,
   }) {
-    // FIXME: Allow PositionedComponent to have a preffered size
-    // before being mounted.
-    /* var occupiedWidth = 0.0;
+    var occupiedWidth = 0.0;
     for (final child in children) {
-      occupiedWidth += child;
-    } */
+      occupiedWidth += child.preferredSize[0];
+    }
 
-    final occupiedWidth = PotionComponent.spriteSize[0] * children.length;
     final availableWidth = width - horizontalPadding[0] - horizontalPadding[1];
     return (availableWidth - occupiedWidth) / (children.length + 1);
   }
