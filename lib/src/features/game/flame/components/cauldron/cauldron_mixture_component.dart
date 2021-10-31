@@ -32,13 +32,12 @@ class CauldronMixtureComponent extends PositionComponent
       ..style = PaintingStyle.fill
       ..color = color;
 
-
-    // TODO: Refactor.
     canvas.drawOval(
       Rect.fromCenter(
-          center: Offset(size[0] * 0.4987156, size[1] * 0.5043880),
-          width: size[0] * 0.9950806,
-          height: size[1] * 0.9753080),
+        center: Offset(size[0] / 2, size[1] / 2),
+        width: size[0],
+        height: size[1],
+      ),
       paint,
     );
 

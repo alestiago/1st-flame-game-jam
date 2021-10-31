@@ -29,7 +29,7 @@ class CauldronComponent extends SpriteComponent with HasGameRef<MyGame> {
           _spriteSize[0] / 2,
           position[1] -
               _spriteSize[1] -
-              (CauldronMixtureComponent.spriteSize[1] / 1.2),
+              (CauldronMixtureComponent.spriteSize[1]),
         ),
     );
   }
