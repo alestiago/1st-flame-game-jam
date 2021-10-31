@@ -11,7 +11,7 @@ class PotionComponent extends SpriteAnimationComponent
     with HasGameRef<MyGame>, Draggable, Hitbox, Collidable {
   PotionComponent(this.type);
 
-  static final Vector2 spriteSize = Vector2(68, 122);
+  static final Vector2 spriteSize = Vector2(64, 122);
   final PotionType type;
   Function()? onDropped;
   late final SpriteAnimation _fullAnimation;
