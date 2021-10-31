@@ -7,18 +7,24 @@ import 'package:flame_game_jam/src/features/game/flame/components/potions/potion
 import 'package:flutter/material.dart';
 
 class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
-  late final PotionComponent _redPotion;
-  late final PotionComponent _bluePotion;
-  late final PotionComponent _greenPotion;
+  var score = 0;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    _redPotion = PotionComponent(PotionType.red);
-    _bluePotion = PotionComponent(PotionType.red);
-    _greenPotion = PotionComponent(PotionType.red);
+    final _redPotion = PotionComponent(PotionType.red);
+    final _bluePotion = PotionComponent(PotionType.blue);
+    final _greenPotion = PotionComponent(PotionType.red);
 
     await add(CauldronComponent());
+    await add(
+      PotionComponent(PotionType.blue)
+        ..anchor = Anchor.center
+        ..position = Vector2(
+          size[0] / 2,
+          120,
+        ),
+    );
     await add(
       DeskComponent(
         children: [
@@ -36,7 +42,7 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
         fontFamily: 'HennyPenny',
       ).withFontSize(25),
     );
-    var score = 20;
+
     await add(
       TextComponent(score.toString(), textRenderer: _style)
         ..anchor = Anchor.topCenter
@@ -44,4 +50,8 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
         ..y = 32.0,
     );
   }
+
+  void onGameOver() {}
+
+  void onScored() {}
 }

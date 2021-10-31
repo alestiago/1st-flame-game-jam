@@ -4,6 +4,8 @@ part of 'potion_group_painter.dart';
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: cascade_invocations
 // ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_int_literals
+// ignore_for_file: prefer_const_constructors
 
 class _RPSCustomPainter extends CustomPainter {
   @override
@@ -176,6 +178,7 @@ class _RPSCustomPainter extends CustomPainter {
     path_3.close();
 
     Paint paint_3_fill = Paint()..style = PaintingStyle.fill;
+
     paint_3_fill.color = Color(0xffAD5353).withOpacity(1.0);
     canvas.drawPath(path_3, paint_3_fill);
 

@@ -18,7 +18,6 @@ class PotionComponent extends SpriteAnimationComponent
         PreferredSizeComponent {
   PotionComponent(this.type);
 
-  static final Vector2 spriteSize = Vector2(64, 122);
   final PotionType type;
   Function()? onDropped;
   late final SpriteAnimation _fullAnimation;
@@ -27,9 +26,9 @@ class PotionComponent extends SpriteAnimationComponent
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = spriteSize;
-    width = spriteSize[0];
-    height = spriteSize[1];
+    size = preferredSize;
+    width = size[0];
+    height = size[1];
 
     collidableType = CollidableType.active;
     final hitbox = HitboxRectangle(relation: Vector2(1, 1));
@@ -41,10 +40,11 @@ class PotionComponent extends SpriteAnimationComponent
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
       image: await gameRef.images.load(type.toSpritePath()),
-      srcSize: Vector2(spriteSize[0], spriteSize[0]),
+      srcSize: Vector2(preferredSize[0], preferredSize[0]),
     );
 
     _fullAnimation = spriteSheet.createAnimation(row: 0, stepTime: 0.17, to: 5);
+    // TODO: Load pouring animation.
   }
 
   Vector2? dragDeltaPosition;
@@ -92,6 +92,6 @@ class PotionComponent extends SpriteAnimationComponent
 
   @override
   Vector2 get preferredSize {
-    return spriteSize;
+    return type.spriteSize();
   }
 }

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class GamePage extends StatelessWidget {
   const GamePage({Key? key}) : super(key: key);
 
-  // static final game = MyGame();
+  static final game = MyGame();
 
   @override
   Widget build(BuildContext context) {
     return GameWidget(
-      game: MyGame(),
+      game: game,
       backgroundBuilder: (_) => Container(
         color: Theme.of(context).colorScheme.background,
       ),
