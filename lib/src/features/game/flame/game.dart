@@ -17,6 +17,7 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
     _redPotion = PotionComponent(PotionType.red);
     _bluePotion = PotionComponent(PotionType.red);
     _greenPotion = PotionComponent(PotionType.red);
+
     await add(CauldronComponent());
     await add(
       DeskComponent(
@@ -26,6 +27,21 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
           _greenPotion,
         ],
       ),
+    );
+
+    // TODO: Move and refactor, make use of Palette.
+    final _style = TextPaint(
+      config: const TextPaintConfig(
+        color: Color(0xFFFFFFFFF),
+        fontFamily: 'HennyPenny',
+      ).withFontSize(25),
+    );
+    var score = 20;
+    await add(
+      TextComponent(score.toString(), textRenderer: _style)
+        ..anchor = Anchor.topCenter
+        ..x = size.x - (_style.config.fontSize * score.toString().length)
+        ..y = 32.0,
     );
   }
 }
