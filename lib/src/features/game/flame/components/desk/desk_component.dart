@@ -58,7 +58,10 @@ class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
       );
       horizontalDisplacement += x;
 
-      await add(potion..position = position);
+      potion.position = position;
+      if (!potion.isMounted) {
+        await add(potion);
+      }
     }
   }
 
