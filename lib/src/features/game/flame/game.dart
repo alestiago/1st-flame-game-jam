@@ -13,12 +13,12 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
   Future<void> onLoad() async {
     await super.onLoad();
     final _redPotion = PotionComponent(PotionType.red);
-    final _bluePotion = PotionComponent(PotionType.blue);
+    final _bluePotion = PotionComponent(PotionType.red);
     final _greenPotion = PotionComponent(PotionType.red);
 
     await add(CauldronComponent());
     await add(
-      PotionComponent(PotionType.blue)
+      PotionComponent(PotionType.red)
         ..anchor = Anchor.center
         ..position = Vector2(
           size[0] / 2,

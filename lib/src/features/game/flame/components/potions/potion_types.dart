@@ -19,7 +19,7 @@ extension PotionTypeX on PotionType {
   Vector2 spriteSize() {
     switch (this) {
       case PotionType.red:
-        return Vector2(64, 122);
+        return Vector2(68, 122);
       case PotionType.blue:
         return Vector2(70, 122);
       case PotionType.green:

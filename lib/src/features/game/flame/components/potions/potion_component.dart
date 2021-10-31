@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/geometry.dart';
@@ -26,12 +28,18 @@ class PotionComponent extends SpriteAnimationComponent
   Future<void> onLoad() async {
     await super.onLoad();
 
-    size = preferredSize;
-    width = size[0];
-    height = size[1];
+    size = spriteSize;
+    width = spriteSize[0];
+    height = spriteSize[1];
+    anchor =
+        Anchor(((spriteSize[0] - preferredSize[0]) / 2) / spriteSize[0], 0);
 
     collidableType = CollidableType.active;
-    final hitbox = HitboxRectangle(relation: Vector2(1, 1));
+    final hitbox = HitboxRectangle(
+        relation: Vector2(
+      preferredSize[0] / spriteSize[0],
+      preferredSize[1] / spriteSize[1],
+    ));
     addHitbox(hitbox);
 
     await _loadAnimations().then((_) => {animation = _fullAnimation});
@@ -39,9 +47,8 @@ class PotionComponent extends SpriteAnimationComponent
 
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
-      image: await gameRef.images.load(type.toSpritePath()),
-      srcSize: Vector2(preferredSize[0], preferredSize[0]),
-    );
+        image: await gameRef.images.load(type.toSpritePath()),
+        srcSize: spriteSize);
 
     _fullAnimation = spriteSheet.createAnimation(row: 0, stepTime: 0.17, to: 5);
     // TODO: Load pouring animation.
@@ -93,5 +100,9 @@ class PotionComponent extends SpriteAnimationComponent
   @override
   Vector2 get preferredSize {
     return type.spriteSize();
+  }
+
+  Vector2 get spriteSize {
+    return Vector2.all(max(preferredSize[0], preferredSize[1]));
   }
 }
