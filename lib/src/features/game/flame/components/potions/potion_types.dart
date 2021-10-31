@@ -10,9 +10,8 @@ extension PotionTypeX on PotionType {
         return 'potion-red.png';
       case PotionType.blue:
         return 'potion-blue.png';
-
       case PotionType.green:
-        return 'potion-red.png';
+        return 'potion-green.png';
     }
   }
 
@@ -23,7 +22,7 @@ extension PotionTypeX on PotionType {
       case PotionType.blue:
         return Vector2(70, 122);
       case PotionType.green:
-        return Vector2(64, 122);
+        return Vector2(90, 122);
     }
   }
 }

@@ -7,8 +7,11 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  bloc: ^7.2.1
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
   flame: 1.0.0-releasecandidate.16
+  flame_audio: 1.0.0-rc.15
   flutter:
     sdk: flutter
 
@@ -24,6 +27,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/audio/
     - assets/fonts/
     - assets/icon/
     - assets/images/

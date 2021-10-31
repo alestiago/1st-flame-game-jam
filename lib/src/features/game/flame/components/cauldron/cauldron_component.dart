@@ -23,6 +23,7 @@ class CauldronComponent extends SpriteComponent with HasGameRef<MyGame> {
     anchor = Anchor.center;
     sprite = await Sprite.load(_spritePath);
 
+    // TODO: Add witch spoon component.
     await add(
       CauldronMixtureComponent()
         ..position = Vector2(

@@ -57,6 +57,7 @@ class DeskComponent extends PositionComponent with HasGameRef<MyGame> {
   Future<void> _layoutChildren({
     Vector2? horizontalPadding,
   }) async {
+    // FIXME: Layout algorithm.
     horizontalPadding = horizontalPadding ?? Vector2.all(0);
     final spaceBetween = _calculateHorizontalSpaceEvenly(
       width: size[0],

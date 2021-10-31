@@ -1,40 +1,56 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/components.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/desk/desk.dart';
 import 'package:flame_game_jam/src/features/game/flame/components/potions/potion_types.dart';
+import 'package:flame_game_jam/src/features/game/flame/logic/logic.dart';
 import 'package:flutter/material.dart';
 
 class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
+  MyGame({
+    required Function(int) onGameOver,
+  }) : _onGameOver = onGameOver;
+
+  final Function(int) _onGameOver;
+
   var score = 0;
+  final colorBloc = ColorBloc()..add(ColorStartEvent());
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    final _redPotion = PotionComponent(PotionType.red);
-    final _bluePotion = PotionComponent(PotionType.red);
-    final _greenPotion = PotionComponent(PotionType.red);
+    // ignore: unawaited_futures
+    FlameAudio.play('witch-start.mp3');
 
     await add(CauldronComponent());
-    await add(
-      PotionComponent(PotionType.red)
-        ..anchor = Anchor.center
-        ..position = Vector2(
-          size[0] / 2,
-          120,
-        ),
-    );
+    await add(EmptyPotionComponent());
     await add(
       DeskComponent(
         children: [
-          _redPotion,
-          _bluePotion,
-          _greenPotion,
+          PotionComponent(PotionType.red),
+          PotionComponent(PotionType.green),
+          PotionComponent(PotionType.blue),
         ],
       ),
     );
+    await _buildScore(score);
+  }
 
+  // TODO: Implement Score BLOC instead.
+  void onGameOver() {
+    FlameAudio.play('witch-sad.mp3');
+    _onGameOver(score);
+  }
+
+  void onScored() {
+    score += 1;
+    FlameAudio.play('witch-happy.mp3');
+    colorBloc.add(ColorNewEvent());
+  }
+
+  Future _buildScore(int score) async {
     // TODO: Move and refactor, make use of Palette.
     final _style = TextPaint(
       config: const TextPaintConfig(
@@ -50,8 +66,4 @@ class MyGame extends FlameGame with HasDraggableComponents, HasCollidables {
         ..y = 32.0,
     );
   }
-
-  void onGameOver() {}
-
-  void onScored() {}
 }
